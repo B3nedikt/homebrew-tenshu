@@ -9,8 +9,12 @@ cask "tenshu-drive" do
   desc "Encrypted file storage"
   homepage "https://tenshu.app/apps/drive"
 
-  # No livecheck yet: the page that would carry the version (/apps/<app>/download/macos) is not
-  # built. The tap is bumped by this generator; `brew upgrade` follows the tap.
+  livecheck do
+    url "https://tenshu.app/apps/drive/download/macos.json"
+    strategy :json do |json|
+      json["version"]
+    end
+  end
 
   depends_on arch: :arm64
   depends_on macos: :sonoma

@@ -9,8 +9,12 @@ cask "tenshu-fit" do
   desc "Workouts and health, private"
   homepage "https://tenshu.app/apps/fit"
 
-  # No livecheck yet: the page that would carry the version (/apps/<app>/download/macos) is not
-  # built. The tap is bumped by this generator; `brew upgrade` follows the tap.
+  livecheck do
+    url "https://tenshu.app/apps/fit/download/macos.json"
+    strategy :json do |json|
+      json["version"]
+    end
+  end
 
   depends_on arch: :arm64
   depends_on macos: :sonoma
